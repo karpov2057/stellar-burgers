@@ -14,14 +14,6 @@ export const Login: FC = () => {
   const [email, setEmailState] = useState<string>('');
   const [password, setPasswordState] = useState<string>('');
 
-  // const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setEmailState(e.target.value);
-  // };
-
-  // const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setPasswordState(e.target.value);
-  // };
-
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const payload = await dispatch(
