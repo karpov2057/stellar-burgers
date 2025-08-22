@@ -8,12 +8,15 @@ import {
   logoutApi,
   getUserApi,
   getOrdersApi,
-  updateUserApi
+  updateUserApi,
+  TLoginData
 } from '@api';
 import { TIngredient, TConstructorItems, TOrder } from '@utils-types';
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import type { RootState } from '../services/store';
+import { setCookie } from '../utils/cookie';
+import { access } from 'fs';
 
 export interface IBurgerState {
   ingredients: TIngredient[];
@@ -70,13 +73,44 @@ export const fetchRegisterUser = createAsyncThunk(
   'user/register',
   registerUserApi
 );
-export const fetchLoginUser = createAsyncThunk('user/login', loginUserApi);
-export const fetchLogoutUser = createAsyncThunk('user/logout', logoutApi);
+export const fetchLoginUser = createAsyncThunk(
+  'user/login',
+  async (data: TLoginData, { rejectWithValue }) => {
+    try {
+      const res = await loginUserApi(data);
+      setCookie('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+export const fetchLogoutUser = createAsyncThunk(
+  'user/logout',
+  async (_: void, { rejectWithValue }) => {
+    try {
+      const res = await logoutApi();
+      localStorage.removeItem('refreshToken');
+      setCookie('accessToken', '');
+      return res;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 export const fetchUpdateUser = createAsyncThunk(
   'user/updateUser',
   updateUserApi
 );
 export const getUserThunk = createAsyncThunk('user/getUser', getUserApi);
+
+export const selectIngredientCount =
+  (id: string, type: TIngredient['type']) => (state: RootState) => {
+    const { bun, ingredients } = state.stellarburger.constructorItems;
+    if (type === 'bun') return bun && bun._id === id ? 2 : 0;
+    return ingredients.filter((item) => item._id === id).length;
+  };
 
 const pendingMatcher = isAnyOf(
   fetchIngredients.pending,
