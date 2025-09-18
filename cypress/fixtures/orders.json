@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "name": "ORDER_NAME",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "643d69a5c3f7b9001cfa093c",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0941",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "proteins": 420,
+        "fat": 142,
+        "carbohydrates": 242,
+        "calories": 4242,
+        "price": 424,
+        "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa093c",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "68a715a7673086001ba83ea6",
+    "owner": {
+      "email": "mail@email.ru",
+      "name": "Test User",
+      "createdAt": "2024-04-06T11:36:38.408Z",
+      "updatedAt": "2024-04-06T12:21:40.120Z"
+    },
+    "status": "done",
+    "name": "Testburger",
+    "createdAt": "2025-08-21T12:48:39.154Z",
+    "updatedAt": "2025-08-21T12:48:40.014Z",
+    "number": 86963,
+    "price": 2934
+  }
+}
