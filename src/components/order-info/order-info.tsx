@@ -1,21 +1,32 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+import { TIngredient, TOrder } from '@utils-types';
+import { useSelector, useDispatch } from '../../services/store';
+import { useParams, useLocation } from 'react-router-dom';
+import {
+  selectIngredients,
+  selectCurrentOrder,
+  selectOrders,
+  selectUserOrders,
+  IBurgerState,
+  fetchFeeds,
+  fetchUserOrders,
+  fetchOrderByNumber
+} from '../../slices/stellarBurgerSlice';
 
 export const OrderInfo: FC = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { number } = useParams<{ number: string }>();
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const orderData = useSelector(selectCurrentOrder);
 
-  const ingredients: TIngredient[] = [];
+  const ingredients: TIngredient[] = useSelector(selectIngredients);
+
+  useEffect(() => {
+    dispatch(fetchOrderByNumber(Number(number)));
+  }, []);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
@@ -28,7 +39,7 @@ export const OrderInfo: FC = () => {
     };
 
     const ingredientsInfo = orderData.ingredients.reduce(
-      (acc: TIngredientsWithCount, item) => {
+      (acc: TIngredientsWithCount, item: string) => {
         if (!acc[item]) {
           const ingredient = ingredients.find((ing) => ing._id === item);
           if (ingredient) {
